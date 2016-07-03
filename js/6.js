@@ -18,6 +18,7 @@ var people = {
 
     cacheDom: function(){
         this.$el         = $("#peopleModule");
+        this.$form       = $(".form--addperson");
         this.$input_name = this.$el.find(".input--name");
         this.$input_date = this.$el.find(".input--date");
         this.$button     = this.$el.find("button");
@@ -28,6 +29,7 @@ var people = {
     bindEvents: function(){
         this.$button.on('click', this.addPerson.bind(this));
         this.$ul.delegate('i.del', 'click', this.deletePerson.bind(this));
+        this.$form.on('submit', this.addPerson.bind(this))
     },
 
     render: function(){
@@ -39,7 +41,7 @@ var people = {
         this.$ul.html(Mustache.render(this.template, data));
     },
 
-    addPerson: function(){
+    addPerson: function(e){
 
         var person = {
             name: this.$input_name.val(),
@@ -51,6 +53,8 @@ var people = {
         this.render();
         this.resetInputs();
         this.store();
+        
+        e.preventDefault();
     },
 
     deletePerson: function(e){
