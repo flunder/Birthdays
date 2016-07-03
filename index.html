@@ -1,0 +1,67 @@
+<html>
+
+    <head>
+        <link rel="stylesheet" href="css/styles.css" type="text/css" media="screen">
+    </head>
+
+    <body>
+
+        <div>
+
+            <header>
+                <a href="#" data-show-screen="list">List</a>
+                <a href="#" data-show-screen="quiz">Quiz</a>
+                <a href="#" data-show-screen="result">Result</a>
+            </header>
+
+            <section class="screen  screen--initial" data-screen="list" id="peopleModule">
+
+                <h1>People</h1>
+                <input placeholder="name" type="text" class="input input--name">
+                <input placeholder="date" type="text" class="input input--date">
+                <button id="addPerson">Add Person</button>
+                <ul id="people">
+                    <script id="people-template" type="text/template">
+                        {{#people}}
+                            <li>
+                                <span>{{name}}: {{date}}</span>
+                                <i class="del">X</i>
+                            </li>
+                        {{/people}}
+                    </script>
+                </ul>
+
+            </section>
+
+            <section class="screen" data-screen="quiz" id="quizModule">
+
+                <script id="quiz-template" type="text/template">
+
+                    <div class="quiz-correct">{{correct}}</div>
+
+                    <div class="quiz-tofind">{{name}}</div>
+
+                    <a href="" class="quiz-option">{{option1}}</a>
+                    <a href="" class="quiz-option">{{option2}}</a>
+                    <a href="" class="quiz-option">{{option3}}</a>
+                    <a href="" class="quiz-option">{{option4}}</a>
+
+                </script>
+
+            </section>
+
+            <section class="screen" data-screen="result">
+                <h1>YOU ARE DONE</h1>
+            </section>
+
+        </div>
+
+    </body>
+    
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js" type="text/javascript"></script>
+    <script src="js/js.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="6.js" type="text/javascript" charset="utf-8"></script>
+    
+</html>
