@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="6px" viewBox="0 0 21 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.2 (29753) - http://www.bohemiancoding.com/sketch -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-6" transform="translate(-333.000000, -34.000000)" fill="#FFFFFF">
+            <g id="Group-2" transform="translate(333.000000, 34.000000)">
+                <path d="M2.83342222,6 C1.26822222,6 0,4.65825 0,3.00045 C0,1.3425 1.26822222,0 2.83342222,0 C4.39862222,0 5.66785556,1.3425 5.66785556,3.00045 C5.66785556,4.6581 4.39862222,6 2.83342222,6 L2.83342222,6 Z M10.166,6 C8.60036667,6 7.33098889,4.65825 7.33098889,3.00045 C7.33098889,1.3425 8.60036667,0 10.166,0 C11.7306222,0 13,1.3425 13,3.00045 C13.0001444,4.6581 11.7306222,6 10.166,6 Z M17.8334222,6 C16.2682222,6 15,4.65825 15,3.00045 C15,1.3425 16.2682222,0 17.8334222,0 C19.3986222,0 20.6678556,1.3425 20.6678556,3.00045 C20.6678556,4.6581 19.3986222,6 17.8334222,6 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

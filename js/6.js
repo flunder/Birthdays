@@ -193,6 +193,7 @@ var screens = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
+        this.checkHash();
     },
 
     cacheDom: function(){
@@ -207,6 +208,10 @@ var screens = {
         name = (typeof name === "string") ? name : $(name.target).data('show-screen');
         this.$screens.hide();
         this.$screens.filter('[data-screen="' + name + '"]').show();
+    },
+
+    checkHash: function(){
+        if (location.hash != "") this.showScreen(location.hash.replace("#", ""));
     }
 
 }
