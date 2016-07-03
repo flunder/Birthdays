@@ -67,7 +67,7 @@ var people = {
     },
 
     resetInputs: function(){
-        this.$input_name.val('');
+        this.$input_name.val('').focus();
         this.$input_date.val('');
     },
 
@@ -80,11 +80,8 @@ var people = {
     },
 
     getRandomPerson: function(){
-
         var rand = Math.floor(Math.random() * this.people.length);
-
         return this.people[rand];
-
     }
 
 }

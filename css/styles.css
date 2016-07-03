@@ -1,4 +1,15 @@
 /*
+    BASE
+*/
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/*
     TYPE
 */
 
@@ -6,32 +17,56 @@ body { font-family: 'Open Sans', sans-serif; }
 
 .hl { font-family: 'Open Sans Condensed', sans-serif; }
 
-
+h1 { text-align: center; padding: 10px 0; color: #a5a5a5; }
 
 body { background: #f9f9f9; }
 
-.wrapper {    max-width: 380px;
+.wrapper {
+    max-width: 380px;
     margin: 0 auto;
     background: white;
     min-height: 600px;
-    border-radius: 5px;
     overflow: hidden;
 }
 
 /*
     MODULE: HEADER
 */
-.header { height: 60px; width: 100%; left: 0; top: 0; right: 0; background: url('../images/header_bg.png') repeat; background-size: 438px;  }
+.header { height: 64px; width: 100%; left: 0; top: 0; right: 0; background: url('../images/header_bg.png') repeat; background-size: 438px;  }
 .header_inner { opacity: 0.96; background: #FF5270; height: 100%; width: 100%; }
 
-.header_logo { text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.6rem; position: absolute; left: 50%; transform: translateX(-50%); }
-.header_settings { padding: 18px; }
-.header_dotdotdot { padding: 18px; margin-top: 3px; }
+.header_logo { text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.9rem; position: absolute; left: 50%; transform: translateX(-50%); }
+.header_settings { padding: 20px; }
+.header_dotdotdot { padding: 20px; margin-top: 3px; }
+
+/*
+    PEOPLE
+*/
+
+.people { }
+.people li { border-bottom: 1px solid #ddd; padding: 15px 0; }
+.people li span { font-weight: bold; }
+
+.form--addperson { padding: 15px 0; border-bottom: 1px solid #ddd; }
+
+.form_inputname { width: 28%; border: none;}
+.form_inputdate { width: 30%; border: none; }
+.form_inputsubmit { width: 40%; }
+
+/*
+    QUIZ
+*/
+.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 100%; border: 3px solid #ff5976; position: relative; }
+.quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
+
+.quiz-option { background: #c2cad2; padding: 15px; font-weight: bold; color: black; text-align: center; border: 1px solid #ff5976; margin-right: 10px; margin-bottom: 10px;}
+
+
 /*
     MODULE: SCREENS
 */
 
-.screen { display: none; }
+.screen { display: none; padding: 20px; }
 .screen--initial { display: block; }
 
 

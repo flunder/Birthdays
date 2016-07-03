@@ -36,25 +36,25 @@
 
             <section class="screen  screen--initial" data-screen="list" id="peopleModule">
 
-                <h1>People</h1>
+                <h1>Add some People to be quizzed</h1>
 
-                <form class="form form--addperson" action="/">
-                    <input placeholder="name" type="text" class="input input--name form--input">
-                    <input placeholder="date" type="text" class="input input--date form--input">
-                    <input type="submit" class="hidden">
-                </form>
-
-                <button id="addPerson">Add Person</button>
-                <ul id="people">
+                <ul id="people" class="people">
                     <script id="people-template" type="text/template">
                         {{#people}}
                             <li>
                                 <span>{{name}}: {{date}}</span>
-                                <i class="del">X</i>
+                                <i class="del pull-right">X</i>
                             </li>
                         {{/people}}
                     </script>
                 </ul>
+
+                <form class="form form--addperson" action="/">
+                    <input placeholder="name" type="text" class="input input--name form_inputname">
+                    <input placeholder="date" type="text" class="input input--date form_inputdate">
+                    <input type="submit" class="hidden">
+                    <button id="addPerson" class="form_inputsubmit">Add Person</button>
+                </form>
 
             </section>
 
@@ -62,14 +62,20 @@
 
                 <script id="quiz-template" type="text/template">
 
-                    <div class="quiz-correct">{{correct}}</div>
+                    <div class="quiz-correct">
+                        <div>{{correct}}
+                    </div>
 
-                    <div class="quiz-tofind">{{name}}</div>
+                    <div class="quiz-tofind">
+                        <div class="quiz-tofind_inner">{{name}}</div>
+                    </div>
 
-                    <a href="" class="quiz-option">{{option1}}</a>
-                    <a href="" class="quiz-option">{{option2}}</a>
-                    <a href="" class="quiz-option">{{option3}}</a>
-                    <a href="" class="quiz-option">{{option4}}</a>
+                    <div class="quiz-options">
+                        <a href="" class="quiz-option col-xs-6">{{option1}}</a>
+                        <a href="" class="quiz-option col-xs-6">{{option2}}</a>
+                        <a href="" class="quiz-option col-xs-6">{{option3}}</a>
+                        <a href="" class="quiz-option col-xs-6">{{option4}}</a>
+                    </div>
 
                 </script>
 
