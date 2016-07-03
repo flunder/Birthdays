@@ -16,10 +16,9 @@ body { background: #f9f9f9; }
     MODULE: HEADER
 */
 .header { position: fixed; height: 60px; width: 100%; left: 0; top: 0; right: 0; background: url('../images/header_bg.png') repeat; background-size: 438px;  }
-.header_inner { opacity: 0.92; background: #FF5270; height: 100%; width: 100%; }
-.header_settings { }
-.header_logo { text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.5rem; position: absolute; left: 50%; transform: translateX(-50%); }
-.header_settings { padding: 15px; }
+.header_inner { opacity: 0.96; background: #FF5270; height: 100%; width: 100%; }
+.header_logo { text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.6rem; position: absolute; left: 50%; transform: translateX(-50%); }
+.header_settings { padding: 18px; }
 
 /*
     MODULE: SCREENS
