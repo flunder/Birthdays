@@ -47,29 +47,24 @@
                 </ul>
 
                 <form class="form form--addperson" action="/">
-                    <input placeholder="name" type="text" class="input input--name form_inputname">
-                    <input placeholder="date" type="text" class="input input--date form_inputdate">
+                    <input placeholder="Name" type="text" class="input input--name form_inputname">
+                    <input placeholder="Date" type="text" class="input input--date form_inputdate">
                     <input type="submit" class="hidden">
-                    <button id="addPerson" class="form_inputsubmit">Add Person</button>
+                    <button id="addPerson" class="form_inputsubmit btn--small btn">Add Person</button>
                 </form>
 
             </section>
 
             <section class="screen" data-screen="quiz" id="quizModule">
 
-                <!-- <div id="cont" data-pct="100">
-                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                      <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                      <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                    </svg>
-                </div> -->
-
                 <div class="quiz-wrap">
 
                     <script id="quiz-template" type="text/template">
 
-                        <div class="quiz-correct">
-                            <div>{{correct}}
+                        <div id="cont">
+                            <svg id="svg" width="280" height="280" viewPort="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                              <circle id="bar" r="135" cx="140" cy="140" fill="transparent" stroke-dasharray="850.48" stroke-dashoffset="0"></circle>
+                            </svg>
                         </div>
 
                         <div class="quiz-tofind">
@@ -103,7 +98,7 @@
 
                 </div>
 
-                <a href="#quiz" class="btn">Play again!</a>
+                <a href="#quiz" class="btn block">Play again!</a>
 
             </section>
 

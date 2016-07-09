@@ -29,7 +29,22 @@ body { background: #f9f9f9; }
     overflow: hidden;
 }
 
+/*
+    BUTTONS
+*/
 
+.btn {
+    display: inline-block;
+    background: #ff5976;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+}
+
+.btn--small { padding: 10px; }
 
 /*
     MODULE: HEADER
@@ -58,7 +73,7 @@ body { background: #f9f9f9; }
 /*
     QUIZ
 */
-.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; border: 3px solid #ff5976; position: relative; width: 80%; margin: 0 auto; }
+.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; position: relative; width: 80%; margin: 0 auto; }
 .quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
 
 .quiz-options { margin-top: 30px; }
@@ -76,7 +91,7 @@ body { background: #f9f9f9; }
     MODULE: SCREENS
 */
 
-.screen { display: none; padding: 20px; }
+.screen { display: none; padding: 20px; position: relative; }
 .screen--initial { display: block; }
 
 
@@ -87,39 +102,19 @@ body { background: #f9f9f9; }
 */
 
 .hidden { display: none; }
+.block { display: block; }
 
-.btn {
-    display: block;
-    background: #ff5976;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-radius: 5px;
-    font-weight: bold;
-}
 
 #cont {
-  display: block;
-  height: 200px;
-  width: 200px;
-  margin: 2em auto;
-  box-shadow: 0 0 1em black;
-  border-radius: 100%;
-  position: relative;
+    text-align: center;
+    position: absolute;
+    width: 90%;
 }
-#cont:after {
-  position: absolute;
-  display: block;
-  height: 160px;
-  width: 160px;
-  left: 50%;
-  top: 50%;
-  box-shadow: inset 0 0 1em black;
-  content: attr(data-pct)"%";
-  margin-top: -80px;
-  margin-left: -80px;
-  border-radius: 100%;
-  line-height: 160px;
-  font-size: 2em;
-  text-shadow: 0 0 0.5em black;
+
+#svg circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 30s linear;
+  stroke: #ff5976;
+  stroke-width: 0.25em;
 }
+

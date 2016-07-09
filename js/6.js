@@ -1,5 +1,4 @@
-/*
-  PEOPLE
+/* PEOPLE
 --------------------------------------- */
 
 var people = {
@@ -86,8 +85,7 @@ var people = {
 
 }
 
-/*
-  QUIZ
+/* QUIZ
 --------------------------------------- */
 
 var quiz = {
@@ -99,6 +97,7 @@ var quiz = {
 
     cacheDom: function(){
         this.$el      = $('#quizModule');
+        this.wrap     = this.$el.find('.quiz-wrap');
         this.template = this.$el.find('#quiz-template').html();
         this.start();
     },
@@ -114,13 +113,18 @@ var quiz = {
         this.correct = 0;
 
         this.render();
+
+        setTimeout(function(){ 
+            quiz.startCountdown();
+        }, 50);
+
     },
 
     render: function(){
 
         var data = this.getQuizData();
 
-        this.$el.html(Mustache.render(this.template, data));
+        this.wrap.html(Mustache.render(this.template, data));
 
     },
 
@@ -205,6 +209,22 @@ var quiz = {
       return array;
     },
 
+    startCountdown: function(){
+
+        var $circle = $('#svg #bar');
+        $circle.css({ strokeDashoffset: 850.48});
+
+
+        var r = $circle.attr('r');
+        var c = Math.PI*(r*2);
+        var val = 0;
+        var pct = ((100-val)/100)*c;
+
+        $circle.css({ strokeDashoffset: pct});
+
+    },
+
+
     /*
         - Render and show the results screen
         - Restart the quiz for next time
@@ -217,6 +237,9 @@ var quiz = {
     }
 
 }
+
+/* RESULTS
+--------------------------------------- */
 
 var results = {
 
@@ -243,8 +266,7 @@ var results = {
 
 }
 
-/*
-  SCREENS
+/* SCREENS
 --------------------------------------- */
 
 var screens = {
@@ -257,10 +279,13 @@ var screens = {
 
     cacheDom: function(){
         this.$screens = $('.screen');
+        this.btn_play = $('.header_dotdotdot');
     },
 
     bindEvents: function(){
         window.addEventListener("hashchange", this.showScreen.bind(this))
+        
+        //this.btn_play.on('click', quiz.start.bind(this));
     },
 
     triggerScreen: function(name){
