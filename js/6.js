@@ -87,7 +87,7 @@ var people = {
 }
 
 /*
-  SCREENS
+  QUIZ
 --------------------------------------- */
 
 var quiz = {
@@ -177,6 +177,10 @@ var quiz = {
       }
 
       return array;
+    },
+
+    countdown: function(){
+        
     }
 
 }
@@ -198,17 +202,31 @@ var screens = {
     },
 
     bindEvents: function(){
-        $('*[data-show-screen]').click(this.showScreen.bind(this));
+        //$('*[data-show-screen]').click(this.showScreen.bind(this));
+        window.addEventListener("hashchange", this.showScreen.bind(this))
     },
 
     showScreen: function(name){
-        name = (typeof name === "string") ? name : $(name.target).data('show-screen');
+
+        // name is a string [ sceens.showScreen() ] [[string 'quiz']]
+        // name is a hashchange event               [[object, HashChangeEvent{}]]
+
+        name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL);
+
         this.$screens.hide();
-        this.$screens.filter('[data-screen="' + name + '"]').show();
+        this.$screens.filter('[data-screen="' + name.replace("#", "") + '"]').show();
+    },
+
+    getHashFromUrl: function(url){
+
+        this.parser = document.createElement('a');
+        this.parser.href = url;
+
+        return this.parser.hash;
     },
 
     checkHash: function(){
-        if (location.hash != "") this.showScreen(location.hash.replace("#", ""));
+        if (location.hash != "") this.showScreen(location.hash);
     }
 
 }

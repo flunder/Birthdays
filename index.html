@@ -24,17 +24,14 @@
         <div class="wrapper">
 
             <header class="header">
-                <!-- <a href="#" data-show-screen="list">List</a>
-                <a href="#" data-show-screen="quiz">Quiz</a>
-                <a href="#" data-show-screen="result">Result</a> -->
-                    <div class="header_inner">
-                        <a href="#" class="header_settings pull-left"><img src="svg/gear.svg" /></a>
-                        <a href="#" class="header_logo hl">BIRTHDAYS</a>
-                        <a href="#" class="header_dotdotdot pull-right"><img src="svg/dotdotdot.svg" /></a>
-                    </div>
+                <div class="header_inner">
+                    <a href="#list" class="header_settings pull-left"><img src="svg/gear.svg" /></a>
+                    <a href="#list" class="header_logo hl">BIRTHDAYS</a>
+                    <a href="#quiz" class="header_dotdotdot pull-right"><img src="svg/dotdotdot.svg" /></a>
+                </div>
             </header>
 
-            <section class="screen  screen--initial" data-screen="list" id="peopleModule">
+            <section class="screen screen--initial" data-screen="list" id="peopleModule">
 
                 <h1>Add some People to be quizzed</h1>
 
@@ -60,24 +57,35 @@
 
             <section class="screen" data-screen="quiz" id="quizModule">
 
-                <script id="quiz-template" type="text/template">
+                <div id="cont" data-pct="100">
+                    <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                      <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                      <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    </svg>
+                </div>
 
-                    <div class="quiz-correct">
-                        <div>{{correct}}
-                    </div>
+                <div class="quiz-XXX">
 
-                    <div class="quiz-tofind">
-                        <div class="quiz-tofind_inner">{{name}}</div>
-                    </div>
+                    <script id="quiz-template" type="text/template">
 
-                    <div class="quiz-options">
-                        <a href="" class="quiz-option col-xs-6">{{option1}}</a>
-                        <a href="" class="quiz-option col-xs-6">{{option2}}</a>
-                        <a href="" class="quiz-option col-xs-6">{{option3}}</a>
-                        <a href="" class="quiz-option col-xs-6">{{option4}}</a>
-                    </div>
+                        <div class="quiz-correct">
+                            <div>{{correct}}
+                        </div>
 
-                </script>
+                        <div class="quiz-tofind">
+                            <div class="quiz-tofind_inner">{{name}}</div>
+                        </div>
+
+                        <div class="quiz-options">
+                            <a href="" class="quiz-option col-xs-6">{{option1}}</a>
+                            <a href="" class="quiz-option col-xs-6">{{option2}}</a>
+                            <a href="" class="quiz-option col-xs-6">{{option3}}</a>
+                            <a href="" class="quiz-option col-xs-6">{{option4}}</a>
+                        </div>
+
+                    </script>
+
+                </div>
 
             </section>
 
