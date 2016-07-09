@@ -56,10 +56,18 @@ body { background: #f9f9f9; }
 /*
     QUIZ
 */
-.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 100%; border: 3px solid #ff5976; position: relative; }
+.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; border: 3px solid #ff5976; position: relative; width: 80%; margin: 0 auto; }
 .quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
 
-.quiz-option { background: #c2cad2; padding: 15px; font-weight: bold; color: black; text-align: center; border: 1px solid #ff5976; margin-right: 10px; margin-bottom: 10px;}
+.quiz-options { margin-top: 30px; }
+.quiz-option { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px; width: 100%; display: block;}
+
+/*
+    RESULTS
+*/
+
+.result-score { text-align: center; font-size: 4rem; margin: 15px; }
+
 
 
 /*

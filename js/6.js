@@ -53,7 +53,7 @@ var people = {
         this.render();
         this.resetInputs();
         this.store();
-        
+
         e.preventDefault();
     },
 
@@ -95,45 +95,67 @@ var quiz = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
-        this.render();
     },
 
     cacheDom: function(){
         this.$el      = $('#quizModule');
         this.template = this.$el.find('#quiz-template').html();
-        this.answer   = "";
-        this.correct  = 0;
+        this.start();
     },
 
     bindEvents: function(){
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
     },
 
+    start: function(){
+        this.answer  = "";
+        this.turns   = 10;
+        this.turn    = 0;
+        this.correct = 0;
+
+        this.render();
+    },
+
     render: function(){
 
-        var data = this.setQuizData();
+        var data = this.getQuizData();
 
         this.$el.html(Mustache.render(this.template, data));
 
     },
 
-    setQuizData: function(){
+    /*
+        [1] Decide the winner
+        [2] Get Quiz 4 options and prepare data for Mustache render
+            - name to be quizzed
+            - options x4 incl. correct one
+            - correct answers so far
+            - turn
+    */
+
+    getQuizData: function(){
 
         this.currentAnswer = people.getRandomPerson();
 
         var options = this.getOptions();
 
         var data = {
-            name: this.currentAnswer.name,
+            name:    this.currentAnswer.name,
             option1: options[0],
             option2: options[1],
             option3: options[2],
             option4: options[3],
-            correct: this.correct
+            correct: this.correct,
+            turn:    this.turn
         }
 
         return data;
     },
+
+    /*
+        Return an Array of answers, make sure
+        the correct answer is also in there
+    */
 
     getOptions: function(){
 
@@ -150,13 +172,17 @@ var quiz = {
 
     checkAnswer: function(e){
 
+        this.turn++;
+
         if ($(e.target).text() == this.currentAnswer.date){
             this.correct++;
         }
 
-        console.log(this.correct);
-
-        this.render();
+        if (this.turn == this.turns) {
+            this.finishQuiz();
+        } else {
+            this.render();
+        }
 
         e.preventDefault();
     },
@@ -179,8 +205,40 @@ var quiz = {
       return array;
     },
 
-    countdown: function(){
-        
+    /*
+        - Render and show the results screen
+        - Restart the quiz for next time
+    */
+
+    finishQuiz: function(){
+        results.render();
+        screens.triggerScreen('result');
+        this.start();
+    }
+
+}
+
+var results = {
+
+    init: function(){
+        this.cacheDom();
+        this.render();
+    },
+
+    cacheDom: function(){
+        this.$el      = $('#resultModule');
+        this.wrap     = this.$el.find('.result-wrap');
+        this.template = this.$el.find('#result-template').html();
+    },
+
+    render: function(){
+
+        var data = {
+            correct: quiz.correct,
+            turns: quiz.turns
+        }
+
+        this.wrap.html(Mustache.render(this.template, data))
     }
 
 }
@@ -194,7 +252,7 @@ var screens = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
-        this.checkHash();
+        this.checkHashOnLoad();
     },
 
     cacheDom: function(){
@@ -202,8 +260,11 @@ var screens = {
     },
 
     bindEvents: function(){
-        //$('*[data-show-screen]').click(this.showScreen.bind(this));
         window.addEventListener("hashchange", this.showScreen.bind(this))
+    },
+
+    triggerScreen: function(name){
+        window.location.hash = name; 
     },
 
     showScreen: function(name){
@@ -211,10 +272,11 @@ var screens = {
         // name is a string [ sceens.showScreen() ] [[string 'quiz']]
         // name is a hashchange event               [[object, HashChangeEvent{}]]
 
-        name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL);
+        name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL).replace("#", "");
 
         this.$screens.hide();
-        this.$screens.filter('[data-screen="' + name.replace("#", "") + '"]').show();
+        this.$screens.filter('[data-screen="' + name + '"]').show();
+
     },
 
     getHashFromUrl: function(url){
@@ -225,7 +287,7 @@ var screens = {
         return this.parser.hash;
     },
 
-    checkHash: function(){
+    checkHashOnLoad: function(){
         if (location.hash != "") this.showScreen(location.hash);
     }
 
@@ -235,4 +297,5 @@ $(function(){
     people.init();
     screens.init();
     quiz.init();
+    results.init();
 })

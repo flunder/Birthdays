@@ -57,14 +57,14 @@
 
             <section class="screen" data-screen="quiz" id="quizModule">
 
-                <div id="cont" data-pct="100">
+                <!-- <div id="cont" data-pct="100">
                     <svg id="svg" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
                       <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
                       <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
                     </svg>
-                </div>
+                </div> -->
 
-                <div class="quiz-XXX">
+                <div class="quiz-wrap">
 
                     <script id="quiz-template" type="text/template">
 
@@ -77,10 +77,10 @@
                         </div>
 
                         <div class="quiz-options">
-                            <a href="" class="quiz-option col-xs-6">{{option1}}</a>
-                            <a href="" class="quiz-option col-xs-6">{{option2}}</a>
-                            <a href="" class="quiz-option col-xs-6">{{option3}}</a>
-                            <a href="" class="quiz-option col-xs-6">{{option4}}</a>
+                            <a href="" class="quiz-option">{{option1}}</a>
+                            <a href="" class="quiz-option">{{option2}}</a>
+                            <a href="" class="quiz-option">{{option3}}</a>
+                            <a href="" class="quiz-option">{{option4}}</a>
                         </div>
 
                     </script>
@@ -89,8 +89,20 @@
 
             </section>
 
-            <section class="screen" data-screen="result">
-                <h1>YOU ARE DONE</h1>
+            <section class="screen" data-screen="result" id="resultModule">
+
+                <h1>RESULTS</h1>
+
+                <div class="result-wrap">
+
+                    <script id="result-template" type="text/template">
+
+                        <div class="result-score">{{correct}}/{{turns}}</span>
+
+                    </script>
+
+                </div>
+
             </section>
 
         </div>
