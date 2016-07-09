@@ -29,6 +29,8 @@ body { background: #f9f9f9; }
     overflow: hidden;
 }
 
+
+
 /*
     MODULE: HEADER
 */
@@ -86,7 +88,15 @@ body { background: #f9f9f9; }
 
 .hidden { display: none; }
 
-
+.btn {
+    display: block;
+    background: #ff5976;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
 
 #cont {
   display: block;

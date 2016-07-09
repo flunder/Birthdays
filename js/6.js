@@ -272,7 +272,11 @@ var screens = {
         // name is a string [ sceens.showScreen() ] [[string 'quiz']]
         // name is a hashchange event               [[object, HashChangeEvent{}]]
 
-        name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL).replace("#", "");
+        name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL);
+
+        // Remove "#" from the hash
+
+        name = name.replace("#", "");
 
         this.$screens.hide();
         this.$screens.filter('[data-screen="' + name + '"]').show();
