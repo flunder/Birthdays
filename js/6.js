@@ -93,20 +93,25 @@ var quiz = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
+        this.start();
     },
 
     cacheDom: function(){
         this.$el      = $('#quizModule');
-        this.wrap     = this.$el.find('.quiz-wrap');
+        this.$wrap    = this.$el.find('.quiz-wrap');
         this.template = this.$el.find('#quiz-template').html();
-        this.start();
+        this.$circle  = this.$el.find('#svg #bar');
     },
 
     bindEvents: function(){
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
+        $('[href="#quiz"]').on('click', this.start.bind(this));
     },
 
     start: function(){
+        
+        var that = this;
+        
         this.answer  = "";
         this.turns   = 10;
         this.turn    = 0;
@@ -114,7 +119,11 @@ var quiz = {
 
         this.render();
 
+        this.$circle.addClass('reset');
+
+
         setTimeout(function(){ 
+            that.$circle.removeClass('reset');
             quiz.startCountdown();
         }, 50);
 
@@ -124,7 +133,7 @@ var quiz = {
 
         var data = this.getQuizData();
 
-        this.wrap.html(Mustache.render(this.template, data));
+        this.$wrap.html(Mustache.render(this.template, data));
 
     },
 
@@ -211,16 +220,14 @@ var quiz = {
 
     startCountdown: function(){
 
-        var $circle = $('#svg #bar');
-        $circle.css({ strokeDashoffset: 850.48});
+        this.$circle.css({ strokeDashoffset: 850.48});
 
-
-        var r = $circle.attr('r');
+        var r = this.$circle.attr('r');
         var c = Math.PI*(r*2);
         var val = 0;
         var pct = ((100-val)/100)*c;
 
-        $circle.css({ strokeDashoffset: pct});
+        this.$circle.css({ strokeDashoffset: pct});
 
     },
 
