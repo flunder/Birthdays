@@ -1,3 +1,21 @@
+var helpers = {
+
+    init: function(){
+
+        this.transEndEventNames = {
+          "WebkitTransition" : "webkitTransitionEnd",
+          "MozTransition"    : "transitionend",
+          "OTransition"      : "oTransitionEnd",
+          "msTransition"     : "MSTransitionEnd",
+          "transition"       : "transitionend"
+        },
+        this.transEndEventName = this.transEndEventNames[ Modernizr.prefixed('transition') ];
+
+    }
+
+}
+
+
 /* PEOPLE
 --------------------------------------- */
 
@@ -71,7 +89,7 @@ var people = {
     },
 
     store: function(){
-        Cookies.set('data', JSON.stringify(this.people, null, ' '));
+        Cookies.set('data', JSON.stringify(this.people, null, ' '), { expires: 365 });
     },
 
     load: function(){
@@ -106,21 +124,23 @@ var quiz = {
     bindEvents: function(){
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
         $('[href="#quiz"]').on('click', this.start.bind(this));
+        
+        this.$circle.on(helpers.transEndEventName, $.proxy(function() {
+            this.finishQuiz();
+        }, this))
     },
 
     start: function(){
-        
+
         var that = this;
-        
+
         this.answer  = "";
-        this.turns   = 10;
-        this.turn    = 0;
+        this.turns   = 0;
         this.correct = 0;
 
         this.render();
 
         this.$circle.addClass('reset');
-
 
         setTimeout(function(){ 
             that.$circle.removeClass('reset');
@@ -150,10 +170,11 @@ var quiz = {
 
         this.currentAnswer = people.getRandomPerson();
 
-        var options = this.getOptions();
+        var askForNameOrDate = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';
+        var options = this.getOptions(askForNameOrDate);
 
         var data = {
-            name:    this.currentAnswer.name,
+            name:    askForNameOrDate == "name" ? this.currentAnswer.name : this.currentAnswer.date,
             option1: options[0],
             option2: options[1],
             option3: options[2],
@@ -170,32 +191,40 @@ var quiz = {
         the correct answer is also in there
     */
 
-    getOptions: function(){
+    getOptions: function(type){
 
         var options = [];
 
-        for (var i = 0; i < 3; i++) {
-            options.push(people.getRandomPerson().date)
-        }
+        if (type == "name") {
 
-        options.push(this.currentAnswer.date);
+            for (var i = 0; i < 3; i++) {
+                options.push(people.getRandomPerson().date)
+            }
+
+            options.push(this.currentAnswer.date);
+
+        } else {
+
+            for (var i = 0; i < 3; i++) {
+                options.push(people.getRandomPerson().name)
+            }
+
+            options.push(this.currentAnswer.name);
+
+        }
 
         return this.shuffleArray(options);
     },
 
     checkAnswer: function(e){
 
-        this.turn++;
+        this.turns++;
 
         if ($(e.target).text() == this.currentAnswer.date){
             this.correct++;
         }
 
-        if (this.turn == this.turns) {
-            this.finishQuiz();
-        } else {
-            this.render();
-        }
+        this.render();
 
         e.preventDefault();
     },
@@ -228,6 +257,8 @@ var quiz = {
         var pct = ((100-val)/100)*c;
 
         this.$circle.css({ strokeDashoffset: pct});
+
+
 
     },
 
@@ -330,6 +361,7 @@ var screens = {
 }
 
 $(function(){
+    helpers.init();
     people.init();
     screens.init();
     quiz.init();
