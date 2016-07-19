@@ -111,7 +111,7 @@ var quiz = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
-        this.start();
+        this.reset();
     },
 
     cacheDom: function(){
@@ -124,15 +124,13 @@ var quiz = {
     bindEvents: function(){
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
         $('[href="#quiz"]').on('click', this.start.bind(this));
-        
+
         this.$circle.on(helpers.transEndEventName, $.proxy(function() {
             this.finishQuiz();
         }, this))
     },
 
-    start: function(){
-
-        var that = this;
+    reset: function(){
 
         this.answer  = "";
         this.turns   = 0;
@@ -141,6 +139,12 @@ var quiz = {
         this.render();
 
         this.$circle.addClass('reset');
+
+    },
+
+    start: function(){
+
+        var that = this;
 
         setTimeout(function(){ 
             that.$circle.removeClass('reset');
@@ -258,8 +262,6 @@ var quiz = {
 
         this.$circle.css({ strokeDashoffset: pct});
 
-
-
     },
 
 
@@ -271,7 +273,7 @@ var quiz = {
     finishQuiz: function(){
         results.render();
         screens.triggerScreen('result');
-        this.start();
+        this.reset();
     }
 
 }
@@ -318,12 +320,11 @@ var screens = {
     cacheDom: function(){
         this.$screens = $('.screen');
         this.btn_play = $('.header_dotdotdot');
+        this.$currentScreen = false;
     },
 
     bindEvents: function(){
         window.addEventListener("hashchange", this.showScreen.bind(this))
-        
-        //this.btn_play.on('click', quiz.start.bind(this));
     },
 
     triggerScreen: function(name){
@@ -342,7 +343,9 @@ var screens = {
         name = name.replace("#", "");
 
         this.$screens.hide();
-        this.$screens.filter('[data-screen="' + name + '"]').show();
+        this.$currentScreen = this.$screens.filter('[data-screen="' + name + '"]').show();
+
+        audio.play(this.$currentScreen.data('audio'));
 
     },
 
@@ -360,8 +363,40 @@ var screens = {
 
 }
 
+/* AUDIO
+--------------------------------------- */
+
+var audio = {
+
+    init: function(){
+
+        this.audiofiles = [
+            'audio/1.mp3', 
+            'audio/2.mp3',
+            'audio/3.mp3'
+        ];
+
+        this.cacheDom();
+    },
+
+    cacheDom: function(){
+        this.el = document.getElementById('music')
+    },
+
+    play: function(id){
+
+        $(this.el).find('source').attr('src', this.audiofiles[id]);
+
+        this.el.load();
+        this.el.play();
+    }
+    
+}
+
+
 $(function(){
     helpers.init();
+    audio.init();
     people.init();
     screens.init();
     quiz.init();
