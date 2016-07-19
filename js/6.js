@@ -358,7 +358,7 @@ var screens = {
     },
 
     checkHashOnLoad: function(){
-        if (location.hash != "") this.showScreen(location.hash);
+        if (location.hash != "") { this.showScreen(location.hash); } else { this.showScreen('#list'); }
     }
 
 }
