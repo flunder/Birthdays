@@ -19,7 +19,10 @@ html {
     background: linear-gradient(to left, #2BC0E4 , #d2ffe4);
 }
 
-body { font-family: 'Open Sans', sans-serif; }
+body,
+select, 
+input, 
+textarea { font-family: 'Open Sans', sans-serif; }
 
 .hl { font-family: 'Open Sans Condensed', sans-serif; }
 
@@ -80,9 +83,11 @@ body { background: #f9f9f9; }
 
 .form--addperson { padding: 15px 0; border-bottom: 1px solid #ddd; }
 
-.form_inputname { width: 28%; border: none;}
-.form_inputdate { width: 30%; border: none; }
-.form_inputsubmit { width: 40%; }
+.form_inputname { width: 38%; }
+.form_inputdate { width: 30%; }
+.form_inputsubmit { width: 30%; cursor: pointer;}
+
+input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-size: 0.7rem; }
 
 /*
     QUIZ
@@ -127,7 +132,7 @@ body { background: #f9f9f9; }
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 30s linear;
+  transition: stroke-dashoffset 15s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }

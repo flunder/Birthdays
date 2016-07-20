@@ -111,7 +111,7 @@ var quiz = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
-        this.reset();
+        // this.reset();
     },
 
     cacheDom: function(){
@@ -122,15 +122,21 @@ var quiz = {
     },
 
     bindEvents: function(){
+
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
         $('[href="#quiz"]').on('click', this.start.bind(this));
+
+        // Catch the show-screen event
+        this.$el.on('show', this.start.bind(this));
 
         this.$circle.on(helpers.transEndEventName, $.proxy(function() {
             this.finishQuiz();
         }, this))
     },
 
-    reset: function(){
+    start: function(){
+
+        var that = this;
 
         this.answer  = "";
         this.turns   = 0;
@@ -140,18 +146,13 @@ var quiz = {
 
         this.$circle.addClass('reset');
 
-    },
-
-    start: function(){
-
-        var that = this;
-
         setTimeout(function(){ 
             that.$circle.removeClass('reset');
             quiz.startCountdown();
         }, 50);
 
     },
+
 
     render: function(){
 
@@ -172,50 +173,40 @@ var quiz = {
 
     getQuizData: function(){
 
-        this.currentAnswer = people.getRandomPerson();
+        this.quiz              = {};
+        this.quiz.person       = people.getRandomPerson();                                                                // date: "22.07" name : "Moni"
+        this.quiz.questionType = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';                                    // date
+        this.quiz.question     = this.quiz.person[this.quiz.questionType];                                                // Moni
+        this.quiz.answer       = this.quiz.questionType == 'name' ? this.quiz.person['date'] : this.quiz.person['name'];  // 22.07
+        this.quiz.answerType   = this.quiz.questionType == 'name' ? "date" : "name";
 
-        var askForNameOrDate = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';
-        var options = this.getOptions(askForNameOrDate);
+        var options = this.getOptions();
 
         var data = {
-            name:    askForNameOrDate == "name" ? this.currentAnswer.name : this.currentAnswer.date,
+            name:    this.quiz.question,
             option1: options[0],
             option2: options[1],
             option3: options[2],
             option4: options[3],
-            correct: this.correct,
-            turn:    this.turn
         }
 
         return data;
     },
 
     /*
-        Return an Array of answers, make sure
-        the correct answer is also in there
+        Return an Array of answers
+        - make sure the correct answer is also in there
     */
 
     getOptions: function(type){
 
         var options = [];
 
-        if (type == "name") {
-
-            for (var i = 0; i < 3; i++) {
-                options.push(people.getRandomPerson().date)
-            }
-
-            options.push(this.currentAnswer.date);
-
-        } else {
-
-            for (var i = 0; i < 3; i++) {
-                options.push(people.getRandomPerson().name)
-            }
-
-            options.push(this.currentAnswer.name);
-
+        for (var i = 0; i < 3; i++) {
+            options.push(people.getRandomPerson()[this.quiz.answerType])
         }
+
+        options.push(this.quiz.answer);
 
         return this.shuffleArray(options);
     },
@@ -224,7 +215,7 @@ var quiz = {
 
         this.turns++;
 
-        if ($(e.target).text() == this.currentAnswer.date){
+        if ($(e.target).text() == this.quiz.answer){
             this.correct++;
         }
 
@@ -273,7 +264,7 @@ var quiz = {
     finishQuiz: function(){
         results.render();
         screens.triggerScreen('result');
-        this.reset();
+        this.start();
     }
 
 }
@@ -319,7 +310,6 @@ var screens = {
 
     cacheDom: function(){
         this.$screens = $('.screen');
-        this.btn_play = $('.header_dotdotdot');
         this.$currentScreen = false;
     },
 
@@ -328,13 +318,20 @@ var screens = {
     },
 
     triggerScreen: function(name){
-        window.location.hash = name; 
+
+        if (window.location.hash == name) {
+            this.showScreen(name);
+        } else {
+            window.location.hash = name;
+        }
+
     },
 
     showScreen: function(name){
 
         // name is a string [ sceens.showScreen() ] [[string 'quiz']]
         // name is a hashchange event               [[object, HashChangeEvent{}]]
+        // There's an additional trigger('show') to catch the show event
 
         name = (typeof name === "string") ? name : this.getHashFromUrl(name.newURL);
 
@@ -343,7 +340,7 @@ var screens = {
         name = name.replace("#", "");
 
         this.$screens.hide();
-        this.$currentScreen = this.$screens.filter('[data-screen="' + name + '"]').show();
+        this.$currentScreen = this.$screens.filter('[data-screen="' + name + '"]').show().trigger('show');
 
         audio.play(this.$currentScreen.data('audio'));
 
@@ -358,7 +355,12 @@ var screens = {
     },
 
     checkHashOnLoad: function(){
-        if (location.hash != "") { this.showScreen(location.hash); } else { this.showScreen('#list'); }
+
+        // Always redirect to the #list screen
+
+        this.triggerScreen('#list');
+
+        // if (location.hash != "") { this.showScreen(location.hash); } else { this.showScreen('#list'); }
     }
 
 }
@@ -377,10 +379,30 @@ var audio = {
         ];
 
         this.cacheDom();
+        this.events();
     },
 
     cacheDom: function(){
         this.el = document.getElementById('music')
+    },
+
+    events: function(){
+
+        /*
+            http://stackoverflow.com/a/22446616/249894
+        */
+
+       this.el.addEventListener('timeupdate', function(){
+
+            var buffer = .48
+
+            if(this.currentTime > this.duration - buffer){
+                this.currentTime = 0
+                this.play()
+            }
+
+        }, false);
+
     },
 
     play: function(id){
