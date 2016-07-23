@@ -145,7 +145,7 @@ var quiz = {
 
         this.$circle.addClass('reset');
 
-        setTimeout(function(){ 
+        setTimeout(function(){
             that.$circle.removeClass('reset');
             quiz.startCountdown();
         }, 50);
@@ -156,7 +156,7 @@ var quiz = {
 
         var data = this.getQuizData();
 
-        this.$wrap.html(Mustache.render(this.template, data));
+        this.$wrap.html(Mustache.render(this.template, data.mustache));
 
     },
 
@@ -167,44 +167,47 @@ var quiz = {
             - options x4 incl. correct one
             - correct answers so far
             - turn
-    
+
         GAME-TYPE:
             - multiple
             - letter
-    
+
         QUESTION-TYPE:
             - name: find the correct date
             - date: find the correct name
- 
-    
+
+
     */
 
     getQuizData: function(){
 
-        this.quiz              = {};
-        this.quiz.gameType     = Math.floor(Math.random() * 2) == 1 ? 'multiple' : 'letter';                              // multiple
-        this.quiz.questionType = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';                                    // date
+        // Quiz Data for this round ------------------------------------------
 
-        this.quiz.person       = people.getRandomPerson();                                                                // date: "22.07" name : "Moni"
-        this.quiz.question     = this.quiz.person[this.quiz.questionType];                                                // Moni
-        this.quiz.answer       = this.quiz.questionType == 'name' ? this.quiz.person['date'] : this.quiz.person['name'];  // 22.07
-        this.quiz.answerType   = this.quiz.questionType == 'name' ? "date" : "name";
+        this.quiz = {
+            game:     {
+                gameType:     Math.floor(Math.random() * 2) == 1 ? 'multiple' : 'letter',
+                questionType: Math.floor(Math.random() * 2) == 1 ? 'name' : 'date',
+                answerType:   ''
+            },
+            question: people.getRandomPerson(),
+            ansers:   []
+        };
 
-        var options = this.getOptions();
+        this.quiz.game.answerType = this.quiz.game.questionType == 'name' ? 'date' : 'name';
+        this.quiz.answers = this.getAnswers();
 
-        console.log(this.quiz);
+        // For Mustache ------------------------------------------------------
 
-        var data = {
-            name:    this.quiz.question,
-            option1: options[0],
-            option2: options[1],
-            option3: options[2],
-            option4: options[3],
+        this.quiz.mustache = {
+            name: this.quiz.question[this.quiz.game.questionType]
         }
 
-//        console.log(this.quiz);
+        for (var i = 0; i < this.quiz.answers.length; i++) {
+            this.quiz.mustache['option' + (i + 1)] = this.quiz.answers[i][this.quiz.game.answerType];
+        }
 
-        return data;
+        return this.quiz;
+
     },
 
     /*
@@ -212,15 +215,15 @@ var quiz = {
         - make sure the correct answer is also in there
     */
 
-    getOptions: function(type){
+    getAnswers: function(type){
 
         var options = [];
 
         for (var i = 0; i < 3; i++) {
-            options.push(people.getRandomPerson()[this.quiz.answerType])
+            options.push(people.getRandomPerson())
         }
 
-        options.push(this.quiz.answer);
+        options.push(this.quiz.question);
 
         return this.shuffleArray(options);
     },
@@ -229,7 +232,7 @@ var quiz = {
 
         this.turns++;
 
-        if ($(e.target).text() == this.quiz.answer){
+        if ($(e.target).text() == this.quiz.question[this.quiz.game.answerType]){
             this.correct++;
         }
 
@@ -278,7 +281,6 @@ var quiz = {
     finishQuiz: function(){
         results.render();
         screens.triggerScreen('result');
-        this.start();
     }
 
 }
@@ -382,7 +384,7 @@ var audio = {
     init: function(){
 
         this.audiofiles = [
-            'audio/1.mp3', 
+            'audio/1.mp3',
             'audio/2.mp3',
             'audio/3.mp3',
             'audio/4.mp3'
@@ -423,7 +425,7 @@ var audio = {
         this.el.load();
         this.el.play();
     }
-    
+
 }
 
 
