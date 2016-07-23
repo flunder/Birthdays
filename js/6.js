@@ -125,10 +125,11 @@ var quiz = {
 
     bindEvents: function(){
 
-        // GameType: Multiple 
-        this.$el.delegate('a.quiz-option--multiple', 'click', this.checkAnswer.bind(this));
+        // GameType: Multiple
+        this.$el.delegate('a.quiz-option--multiple', 'click', this.checkAnswer_multiple.bind(this));
 
         // GameType: Letter
+        this.$el.delegate('a.quiz-option--letter', 'click', this.activateLetter.bind(this));
 
         // Catch the show-screen event
         this.$el.on('show', this.start.bind(this));
@@ -224,7 +225,7 @@ var quiz = {
 
         /* Multiple: { 0: "31.05", 1: "03.01", 2: "22.07", 3: "03.01" } */
 
-        if (this.quiz.game.gameType == "multiple"){ 
+        if (this.quiz.game.gameType == "multiple"){
 
             for (var i = 0; i < 3; i++) {
                 options.push(people.getRandomPerson()[this.quiz.game.answerType])
@@ -240,21 +241,32 @@ var quiz = {
 
             var answer = this.quiz.question[this.quiz.game.answerType];
 
-            
-
             for (var i = 0; i < answer.length; i++) {
                 options.push(answer.charAt(i))
             }
-
-            console.log(options);
-
 
         }
 
         return this.shuffleArray(options);
     },
 
-    checkAnswer: function(e){
+    activateLetter: function(e){
+
+        this.$chosenLetters = $('.quiz-selectedLetters');
+
+        if (!$(e.target).hasClass('isActive')) {
+            this.$chosenLetters.append(e.target.text);
+            $(e.target).addClass('isActive');
+        }
+
+        if (this.$chosenLetters.text().trim().length == this.quiz.question[this.quiz.game.answerType].length) {
+            this.checkAnswer_letter();
+        }
+
+        e.preventDefault();
+    },
+
+    checkAnswer_multiple: function(e){
 
         this.turns++;
 
@@ -265,6 +277,19 @@ var quiz = {
         this.render();
 
         e.preventDefault();
+    },
+
+
+    checkAnswer_letter: function(){
+
+        this.turns++;
+
+        if (this.$chosenLetters.text().trim() == this.quiz.question[this.quiz.game.answerType]) {
+            this.correct++;
+        }
+
+        this.render();
+
     },
 
     shuffleArray: function(array) {

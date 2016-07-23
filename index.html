@@ -78,7 +78,7 @@
 
                         <div class="quiz-options">
                             {{#options}}
-                                <a href="" class="quiz-option--multiple">{{.}}</a>
+                                <a href="" class="quiz-option quiz-option--multiple">{{.}}</a>
                             {{/options}}
                         </div>
 
@@ -90,9 +90,12 @@
                             <div class="quiz-tofind_inner">{{name}}</div>
                         </div>
 
-                        <div class="quiz-options">
+                        <div class="quiz-selectedLetters">
+                        </div>
+
+                        <div class="quiz-options quiz-options--letter">
                             {{#options}}
-                                <a href="" class="quiz-option--letter">{{.}}</a>
+                                <a href="" class="quiz-option quiz-option--letter">{{.}}</a>
                             {{/options}}
                         </div>
 

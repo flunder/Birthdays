@@ -92,15 +92,21 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 /*
     QUIZ
 */
-.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; position: relative; width: 80%; margin: 0 auto; }
+.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; position: relative; width: 80%; margin: 0 auto; margin-bottom: 30px; }
 .quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
 
-.quiz-options { margin-top: 30px; }
+.quiz-options { }
+.quiz-options--letter { display: flex; align-items: center; justify-content: center; }
 
+.quiz-option {}
+.quiz-option:hover { background: #ff5976; }
 .quiz-option--multiple,
-.quiz-option--letter { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px;  }
+.quiz-option--letter { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px; }
+.quiz-option--multiple { width: 100%; display: block; }
+.quiz-option--letter { margin: 0 5px 5px; border-radius: 5px; }
+.quiz-option--letter.isActive { background: #afadad; }
 
-.quiz-option--multiple { width: 100%; display: block;}
+.quiz-selectedLetters { height: 50px; margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; }
 
 /*
     RESULTS
