@@ -465,35 +465,22 @@ var audio = {
     },
 
     cacheDom: function(){
-        this.el = document.getElementById('music')
     },
 
     events: function(){
-
-        /*
-            http://stackoverflow.com/a/22446616/249894
-        */
-
-       this.el.addEventListener('timeupdate', function(){
-
-            var buffer = .48
-
-            if(this.currentTime > this.duration - buffer){
-                this.currentTime = 0
-                this.play()
-            }
-
-        }, false);
 
     },
 
     play: function(id){
 
-        $(this.el).find('source[type="audio/mpeg"]').attr('src', this.audiofiles[id]);
-        $(this.el).find('source[type="audio/ogg"]').attr('src', this.audiofiles[id].replace('mp3','ogg'));
+        if (this.sound && this.sound.playing()) this.sound.stop();
 
-        this.el.load();
-        this.el.play();
+        this.sound = new Howl({
+            src: this.audiofiles[id],
+            loop: true,
+        });
+
+        this.sound.play();
     }
 
 }
