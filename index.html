@@ -70,17 +70,30 @@
 
                 <div class="quiz-wrap">
 
-                    <script id="quiz-template" type="text/template">
+                    <script id="quiz-template-multiple" type="text/template">
 
                         <div class="quiz-tofind">
                             <div class="quiz-tofind_inner">{{name}}</div>
                         </div>
 
                         <div class="quiz-options">
-                            <a href="" class="quiz-option">{{option1}}</a>
-                            <a href="" class="quiz-option">{{option2}}</a>
-                            <a href="" class="quiz-option">{{option3}}</a>
-                            <a href="" class="quiz-option">{{option4}}</a>
+                            {{#options}}
+                                <a href="" class="quiz-option--multiple">{{.}}</a>
+                            {{/options}}
+                        </div>
+
+                    </script>
+
+                    <script id="quiz-template-letter" type="text/template">
+
+                        <div class="quiz-tofind">
+                            <div class="quiz-tofind_inner">{{name}}</div>
+                        </div>
+
+                        <div class="quiz-options">
+                            {{#options}}
+                                <a href="" class="quiz-option--letter">{{.}}</a>
+                            {{/options}}
                         </div>
 
                     </script>

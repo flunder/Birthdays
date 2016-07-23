@@ -96,7 +96,11 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 .quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
 
 .quiz-options { margin-top: 30px; }
-.quiz-option { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px; width: 100%; display: block;}
+
+.quiz-option--multiple,
+.quiz-option--letter { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px;  }
+
+.quiz-option--multiple { width: 100%; display: block;}
 
 /*
     RESULTS

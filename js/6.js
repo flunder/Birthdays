@@ -116,13 +116,19 @@ var quiz = {
     cacheDom: function(){
         this.$el      = $('#quizModule');
         this.$wrap    = this.$el.find('.quiz-wrap');
-        this.template = this.$el.find('#quiz-template').html();
         this.$circle  = this.$el.find('#svg #bar');
+        this.template = {
+            multiple: this.$el.find('#quiz-template-multiple').html(),
+            letter: this.$el.find('#quiz-template-letter').html()
+        }
     },
 
     bindEvents: function(){
 
-        this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
+        // GameType: Multiple 
+        this.$el.delegate('a.quiz-option--multiple', 'click', this.checkAnswer.bind(this));
+
+        // GameType: Letter
 
         // Catch the show-screen event
         this.$el.on('show', this.start.bind(this));
@@ -156,7 +162,7 @@ var quiz = {
 
         var data = this.getQuizData();
 
-        this.$wrap.html(Mustache.render(this.template, data.mustache));
+        this.$wrap.html(Mustache.render(this.template[this.quiz.game.gameType], data.mustache));
 
     },
 
@@ -190,7 +196,7 @@ var quiz = {
                 answerType:   ''
             },
             question: people.getRandomPerson(),
-            ansers:   []
+            answers:   []
         };
 
         this.quiz.game.answerType = this.quiz.game.questionType == 'name' ? 'date' : 'name';
@@ -199,11 +205,8 @@ var quiz = {
         // For Mustache ------------------------------------------------------
 
         this.quiz.mustache = {
-            name: this.quiz.question[this.quiz.game.questionType]
-        }
-
-        for (var i = 0; i < this.quiz.answers.length; i++) {
-            this.quiz.mustache['option' + (i + 1)] = this.quiz.answers[i][this.quiz.game.answerType];
+            name:    this.quiz.question[this.quiz.game.questionType],
+            options: this.quiz.answers
         }
 
         return this.quiz;
@@ -219,11 +222,34 @@ var quiz = {
 
         var options = [];
 
-        for (var i = 0; i < 3; i++) {
-            options.push(people.getRandomPerson())
+        /* Multiple: { 0: "31.05", 1: "03.01", 2: "22.07", 3: "03.01" } */
+
+        if (this.quiz.game.gameType == "multiple"){ 
+
+            for (var i = 0; i < 3; i++) {
+                options.push(people.getRandomPerson()[this.quiz.game.answerType])
+            }
+
+            options.push(this.quiz.question[this.quiz.game.answerType]);
+
         }
 
-        options.push(this.quiz.question);
+        /* Letter:  { 0: "a", 1: "b", 2: "c", 3: "d", 4: "e" } */
+
+        if (this.quiz.game.gameType == "letter"){
+
+            var answer = this.quiz.question[this.quiz.game.answerType];
+
+            
+
+            for (var i = 0; i < answer.length; i++) {
+                options.push(answer.charAt(i))
+            }
+
+            console.log(options);
+
+
+        }
 
         return this.shuffleArray(options);
     },
