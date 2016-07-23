@@ -259,9 +259,7 @@ var quiz = {
             $(e.target).addClass('isActive');
         }
 
-        if (this.$chosenLetters.text().trim().length == this.quiz.question[this.quiz.game.answerType].length) {
-            this.checkAnswer_letter();
-        }
+        this.checkAnswer_letter();
 
         e.preventDefault();
     },
@@ -280,15 +278,36 @@ var quiz = {
     },
 
 
+    /*
+        [1] Check answer if => chosen letters == total of letters in answer
+        [2] Was the next letter a correct pick?
+    */
+
     checkAnswer_letter: function(){
 
-        this.turns++;
+        var pickedLetters = this.$chosenLetters.text().trim();
+        var answer        = this.quiz.question[this.quiz.game.answerType];
 
-        if (this.$chosenLetters.text().trim() == this.quiz.question[this.quiz.game.answerType]) {
-            this.correct++;
+        if (pickedLetters.length == answer.length) {
+
+            this.turns++;
+
+            if (pickedLetters == answer) {
+                this.correct++;
+            }
+
+            this.render();
+
+        } else {
+
+            var length = this.$chosenLetters.text().trim().length;
+
+            if (pickedLetters.substring(0,length) != answer.substring(0,length)){
+                this.turns++;
+                this.render();
+            }
+
         }
-
-        this.render();
 
     },
 
