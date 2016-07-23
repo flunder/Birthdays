@@ -111,7 +111,6 @@ var quiz = {
     init: function(){
         this.cacheDom();
         this.bindEvents();
-        // this.reset();
     },
 
     cacheDom: function(){
@@ -124,11 +123,11 @@ var quiz = {
     bindEvents: function(){
 
         this.$el.delegate('a', 'click', this.checkAnswer.bind(this));
-        $('[href="#quiz"]').on('click', this.start.bind(this));
 
         // Catch the show-screen event
         this.$el.on('show', this.start.bind(this));
 
+        // Catch css animation end
         this.$circle.on(helpers.transEndEventName, $.proxy(function() {
             this.finishQuiz();
         }, this))
@@ -153,7 +152,6 @@ var quiz = {
 
     },
 
-
     render: function(){
 
         var data = this.getQuizData();
@@ -169,18 +167,32 @@ var quiz = {
             - options x4 incl. correct one
             - correct answers so far
             - turn
+    
+        GAME-TYPE:
+            - multiple
+            - letter
+    
+        QUESTION-TYPE:
+            - name: find the correct date
+            - date: find the correct name
+ 
+    
     */
 
     getQuizData: function(){
 
         this.quiz              = {};
-        this.quiz.person       = people.getRandomPerson();                                                                // date: "22.07" name : "Moni"
+        this.quiz.gameType     = Math.floor(Math.random() * 2) == 1 ? 'multiple' : 'letter';                              // multiple
         this.quiz.questionType = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';                                    // date
+
+        this.quiz.person       = people.getRandomPerson();                                                                // date: "22.07" name : "Moni"
         this.quiz.question     = this.quiz.person[this.quiz.questionType];                                                // Moni
         this.quiz.answer       = this.quiz.questionType == 'name' ? this.quiz.person['date'] : this.quiz.person['name'];  // 22.07
         this.quiz.answerType   = this.quiz.questionType == 'name' ? "date" : "name";
 
         var options = this.getOptions();
+
+        console.log(this.quiz);
 
         var data = {
             name:    this.quiz.question,
@@ -189,6 +201,8 @@ var quiz = {
             option3: options[2],
             option4: options[3],
         }
+
+//        console.log(this.quiz);
 
         return data;
     },
@@ -355,12 +369,7 @@ var screens = {
     },
 
     checkHashOnLoad: function(){
-
-        // Always redirect to the #list screen
-
         this.triggerScreen('#list');
-
-        // if (location.hash != "") { this.showScreen(location.hash); } else { this.showScreen('#list'); }
     }
 
 }
@@ -375,7 +384,8 @@ var audio = {
         this.audiofiles = [
             'audio/1.mp3', 
             'audio/2.mp3',
-            'audio/3.mp3'
+            'audio/3.mp3',
+            'audio/4.mp3'
         ];
 
         this.cacheDom();
@@ -407,7 +417,8 @@ var audio = {
 
     play: function(id){
 
-        $(this.el).find('source').attr('src', this.audiofiles[id]);
+        $(this.el).find('source[type="audio/mpeg"]').attr('src', this.audiofiles[id]);
+        $(this.el).find('source[type="audio/ogg"]').attr('src', this.audiofiles[id].replace('mp3','ogg'));
 
         this.el.load();
         this.el.play();
