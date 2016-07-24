@@ -413,21 +413,32 @@ var results = {
     getFromServer: function(){
 
         $.ajax ({
-                type: 'GET',
-                url: 'http://birthdays.larsattacks.co.uk/scores.json',
-                beforeSend: function() {
+            type: 'GET',
+            dataType: 'jsonp',
+            data: {},
+            url: 'http://birthdays.larsattacks.co.uk/scores.json?callback=?',
+            success:   function(data) {
 
-                },
-                success:   function(data) {
+            }
+        });
 
-                },
-                error:     function(errorThrown){
+    },
+    
+    sendToServer: function(){
 
-                }
+        $.ajax ({
+            type: 'GET',
+            dataType: 'jsonp',
+            data: {
+                'score': "moo"
+            },
+            url: 'http://birthdays.larsattacks.co.uk/php/addscore.php',
+            success:   function(data) {
+                
+            }
+        });
 
-            });
-
-    }
+    },
 
 }
 
