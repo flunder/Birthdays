@@ -270,6 +270,7 @@ var quiz = {
 
         if ($(e.target).text() == this.quiz.question[this.quiz.game.answerType]){
             this.correct++;
+            audio.soundSprite.play('yep');
         }
 
         this.render();
@@ -277,6 +278,16 @@ var quiz = {
         e.preventDefault();
     },
 
+    correct_pick: function(){
+        this.turns++;
+        this.correct++;
+        audio.soundSprite.play('yep');
+    },
+
+    wrong_pick: function(){
+        this.turns++;
+        audio.soundSprite.play('nope'); 
+    },
 
     /*
         [1] Check answer if => chosen letters == total of letters in answer
@@ -290,10 +301,10 @@ var quiz = {
 
         if (pickedLetters.length == answer.length) {
 
-            this.turns++;
-
             if (pickedLetters == answer) {
-                this.correct++;
+                this.correct_pick();
+            } else {
+                this.wrong_pick();
             }
 
             this.render();
@@ -303,7 +314,7 @@ var quiz = {
             var length = this.$chosenLetters.text().trim().length;
 
             if (pickedLetters.substring(0,length) != answer.substring(0,length)){
-                this.turns++;
+                this.wrong_pick();
                 this.render();
             }
 
@@ -459,6 +470,15 @@ var audio = {
             'audio/3.mp3',
             'audio/4.mp3'
         ];
+
+        this.soundSprite = new Howl({
+            src: ['audio/sounds1.mp3'],
+            sprite: {
+                yep:   [0, 270],
+                nope:  [290, 850],
+                bonus: [850, 1200],
+            }
+        });
 
         this.cacheDom();
         this.events();
