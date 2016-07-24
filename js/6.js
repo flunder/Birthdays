@@ -147,6 +147,7 @@ var quiz = {
         this.answer  = "";
         this.turns   = 0;
         this.correct = 0;
+        this.steak   = 0;
 
         this.render();
 
@@ -250,6 +251,10 @@ var quiz = {
         return this.shuffleArray(options);
     },
 
+    /*
+        Multiple: letter has been chosen
+    */
+
     activateLetter: function(e){
 
         this.$chosenLetters = $('.quiz-selectedLetters');
@@ -264,29 +269,21 @@ var quiz = {
         e.preventDefault();
     },
 
+    /*
+        Multiple: check if the answer is correct
+    */
+
     checkAnswer_multiple: function(e){
 
-        this.turns++;
-
         if ($(e.target).text() == this.quiz.question[this.quiz.game.answerType]){
-            this.correct++;
-            audio.soundSprite.play('yep');
+            this.correct_pick();
+        } else {
+            this.wrong_pick();
         }
 
         this.render();
 
         e.preventDefault();
-    },
-
-    correct_pick: function(){
-        this.turns++;
-        this.correct++;
-        audio.soundSprite.play('yep');
-    },
-
-    wrong_pick: function(){
-        this.turns++;
-        audio.soundSprite.play('nope'); 
     },
 
     /*
@@ -320,6 +317,27 @@ var quiz = {
 
         }
 
+    },
+
+    correct_pick: function(){
+        this.turns++;
+        this.correct++;
+        this.streak++;
+
+        if (this.streak == 5) {
+            audio.soundSprite.play('bonus');
+            this.steak = 0;
+        } else {
+            audio.soundSprite.play('yep');
+        }
+
+    },
+
+    wrong_pick: function(){
+        this.turns++;
+        this.streak = 0;
+
+        audio.soundSprite.play('nope');
     },
 
     shuffleArray: function(array) {
@@ -390,6 +408,27 @@ var results = {
         }
 
         this.wrap.html(Mustache.render(this.template, data))
+    }
+
+    getFromServer: function(){
+
+        $.ajax ({
+                type: 'GET',
+                url: 'http://birthdays.larsattacks.co.uk/scores.json'
+                beforeSend: function() {
+    
+                },
+                success:   function(data) {
+    
+                },
+                error:     function(errorThrown){
+    
+                }
+    
+            });
+
+        }
+        
     }
 
 }
@@ -476,7 +515,7 @@ var audio = {
             sprite: {
                 yep:   [0, 270],
                 nope:  [290, 850],
-                bonus: [850, 1200],
+                bonus: [1200, 1200],
             }
         });
 
