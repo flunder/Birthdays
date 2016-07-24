@@ -408,27 +408,25 @@ var results = {
         }
 
         this.wrap.html(Mustache.render(this.template, data))
-    }
+    },
 
     getFromServer: function(){
 
         $.ajax ({
                 type: 'GET',
-                url: 'http://birthdays.larsattacks.co.uk/scores.json'
+                url: 'http://birthdays.larsattacks.co.uk/scores.json',
                 beforeSend: function() {
-    
+
                 },
                 success:   function(data) {
-    
+
                 },
                 error:     function(errorThrown){
-    
+
                 }
-    
+
             });
 
-        }
-        
     }
 
 }
