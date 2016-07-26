@@ -26,9 +26,7 @@ section {
 .f3 { flex: 3 0 0; }
 .f10 { flex: 10 0 0; }
 
-.f1, .f10 {
-    width: 100%;
-}
+/*.f1, .f3, .f10 { width: 100%; }*/
 
 .wrapper { height: 100vh; }
 
@@ -165,7 +163,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1000s linear;
+  transition: stroke-dashoffset 30s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }
