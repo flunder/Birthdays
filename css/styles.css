@@ -121,7 +121,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 /*
     QUIZ
 */
-.quiz-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
+.quiz-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; z-index: 200; }
 
 .quiz-tofind { font-size: 3rem; display: flex; align-items: flex-start; align-self: center; padding-top: 110px; }
 .quiz-tofind_inner {  }
