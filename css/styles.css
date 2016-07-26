@@ -22,7 +22,7 @@ section {
     flex-wrap: nowrap;
     align-items: center;
     width: 100%;
-/*    height: calc(100vh - 70px);*/
+    height: 100%;
 }
 
 .f1 { flex: 1 0 0; }
@@ -164,7 +164,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 30s linear;
+  transition: stroke-dashoffset 1130s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }
