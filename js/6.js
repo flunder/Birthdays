@@ -512,12 +512,13 @@ var audio = {
 
     init: function(){
 
-        this.audiofiles = [
-            'audio/1.mp3',
-            'audio/2.mp3',
-            'audio/3.mp3',
-            'audio/4.mp3'
-        ];
+        this.bg_audio = { 
+            audio_1: new Howl({ src: 'audio/1.mp3', loop: true }),
+            audio_2: new Howl({ src: 'audio/2.mp3', loop: true }),
+            audio_3: new Howl({ src: 'audio/3.mp3', loop: true }),
+            audio_4: new Howl({ src: 'audio/4.mp3', loop: true }),
+            is_playing: []
+        }
 
         this.soundSprite = new Howl({
             src: ['audio/sounds1.mp3'],
@@ -541,14 +542,21 @@ var audio = {
 
     play: function(id){
 
-        if (this.sound && this.sound.playing()) this.sound.stop();
+        if (this.is_playing) {
+            this.bg_audio['audio_' + this.is_playing].stop();
+        }
 
-        this.sound = new Howl({
-            src: this.audiofiles[id],
-            loop: true,
-        });
+        this.bg_audio["audio_" + id].play();
+        this.is_playing = id;
 
-        this.sound.play();
+        // if (this.sound && this.sound.playing()) this.sound.stop();
+        //
+        // this.sound = new Howl({
+        //     src: this.audiofiles[id],
+        //     loop: true,
+        // });
+        //
+        // this.sound.play();
     }
 
 }

@@ -66,7 +66,7 @@ body { background: #f9f9f9; }
 /*
     MODULE: HEADER
 */
-.header { height: 64px; width: 100%; left: 0; top: 0; right: 0; background: url('../images/header_bg.png') repeat; background-size: 438px;  }
+.header { height: 64px; width: 100%; left: 0; top: 0; right: 0; background: url('../images/header_bg.png') repeat; background-size: 438px; }
 .header_inner { opacity: 0.96; background: #FF5270; height: 100%; width: 100%; }
 
 .header_logo { z-index: -1; text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.9rem; position: absolute; left: 50%; transform: translateX(-50%); }
@@ -142,7 +142,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 15s linear;
+  transition: stroke-dashoffset 30s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }
