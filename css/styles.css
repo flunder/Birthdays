@@ -10,6 +10,29 @@ html {
 }
 
 /*
+    Layout
+*/
+
+section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 70px); 
+}
+
+.f1 { flex: 1 0 0; }
+.f3 { flex: 3 0 0; }
+.f10 { flex: 10 0 0; }
+
+.f1, .f10 {
+    width: 100%;
+}
+
+.wrapper { height: 100vh; }
+
+/*
     TYPE
 */
 
@@ -34,8 +57,6 @@ body { background: #f9f9f9; }
     max-width: 380px;
     margin: 0 auto;
     background: white;
-    min-height: 600px;
-    overflow: hidden;
 }
 
 .notransition {
@@ -92,8 +113,10 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 /*
     QUIZ
 */
-.quiz-tofind { font-size: 3rem; text-align: center; border-radius: 50%; padding-bottom: 80%; position: relative; width: 80%; margin: 0 auto; margin-bottom: 30px; }
-.quiz-tofind_inner { width: 100%; top: 50%; position: absolute; transition: transform; transform: translateY(-50%); }
+.quiz-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
+
+.quiz-tofind { font-size: 3rem; display: flex; align-items: center; align-self: center; }
+.quiz-tofind_inner {  }
 
 .quiz-options { }
 .quiz-options--letter { display: flex; align-items: center; justify-content: center; }
@@ -106,13 +129,13 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 .quiz-option--letter { margin: 0 5px 5px; border-radius: 5px; }
 .quiz-option--letter.isActive { background: #afadad; }
 
-.quiz-selectedLetters { height: 50px; margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; }
+.quiz-selectedLetters { margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; }
 
 /*
     RESULTS
 */
 
-.result-score { text-align: center; font-size: 4rem; margin: 160px 0px; }
+.result-score { text-align: center; font-size: 4rem; position: absolute; top: 40%; width: 100%; left: 0; }
 
 
 
@@ -142,7 +165,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 30s linear;
+  transition: stroke-dashoffset 1000s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }

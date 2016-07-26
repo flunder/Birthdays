@@ -67,11 +67,11 @@
 
                     <script id="quiz-template-multiple" type="text/template">
 
-                        <div class="quiz-tofind">
+                        <div class="quiz-tofind f3">
                             <div class="quiz-tofind_inner">{{name}}</div>
                         </div>
 
-                        <div class="quiz-options">
+                        <div class="quiz-options f1">
                             {{#options}}
                                 <a href="" class="quiz-option quiz-option--multiple">{{.}}</a>
                             {{/options}}
@@ -81,14 +81,14 @@
 
                     <script id="quiz-template-letter" type="text/template">
 
-                        <div class="quiz-tofind">
+                        <div class="quiz-tofind f3">
                             <div class="quiz-tofind_inner">{{name}}</div>
                         </div>
 
-                        <div class="quiz-selectedLetters">
+                        <div class="quiz-selectedLetters f1">
                         </div>
 
-                        <div class="quiz-options quiz-options--letter">
+                        <div class="quiz-options quiz-options--letter f1">
                             {{#options}}
                                 <a href="" class="quiz-option quiz-option--letter">{{.}}</a>
                             {{/options}}
@@ -100,13 +100,13 @@
 
             </section>
 
-            <section class="screen" data-screen="result" id="resultModule" data-audio="4">
+            <section class="screen" data-screen="result" id="resultModule" data-audio="1">
 
-                <h1>RESULTS</h1>
-
-                <div class="result-wrap">
+                <div class="result-wrap f10">
 
                     <script id="result-template" type="text/template">
+
+                        <h1>RESULTS</h1>
 
                         <div class="result-score">{{correct}}/{{turns}}</span>
 

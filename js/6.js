@@ -516,7 +516,7 @@ var audio = {
             audio_1: new Howl({ src: 'audio/1.mp3', loop: true }),
             audio_2: new Howl({ src: 'audio/2.mp3', loop: true }),
             audio_3: new Howl({ src: 'audio/3.mp3', loop: true }),
-            audio_4: new Howl({ src: 'audio/4.mp3', loop: true }),
+            // audio_4: new Howl({ src: 'audio/4.mp3', loop: true }),
             is_playing: []
         }
 
