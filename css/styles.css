@@ -5,6 +5,12 @@
 html {
   box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    align-items: center;
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -56,6 +62,9 @@ body { background: #f9f9f9; }
     background: white;
     padding-top: 64px;
     height: 100%;
+    max-height: 660px;
+    width: 100%;
+    position: relative;
 }
 
 .notransition {
@@ -86,7 +95,7 @@ body { background: #f9f9f9; }
 /*
     MODULE: HEADER
 */
-.header { z-index: 100; height: 64px; width: 100%; top: 0; position: fixed; background: url('../images/header_bg.png') repeat; background-size: 438px; max-width: inherit; }
+.header { z-index: 100; height: 64px; width: 100%; top: 0; position: absolute; background: url('../images/header_bg.png') repeat; background-size: 438px; max-width: inherit; }
 .header_inner { opacity: 0.96; background: #FF5270; height: 100%; width: 100%; }
 
 .header_logo { z-index: -1; text-align: center; width: 100%; color: white; display: block; font-size: 1.7rem; line-height: 3.9rem; position: absolute; left: 50%; transform: translateX(-50%); }
@@ -114,7 +123,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 */
 .quiz-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; }
 
-.quiz-tofind { font-size: 3rem; display: flex; align-items: center; align-self: center; }
+.quiz-tofind { font-size: 3rem; display: flex; align-items: flex-start; align-self: center; padding-top: 110px; }
 .quiz-tofind_inner {  }
 
 .quiz-options { }
