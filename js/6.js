@@ -267,6 +267,7 @@ var quiz = {
         this.checkAnswer_letter();
 
         e.preventDefault();
+        return false;
     },
 
     /*
