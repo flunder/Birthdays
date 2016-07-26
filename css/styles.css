@@ -137,7 +137,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 .quiz-option--letter { margin: 0 5px 5px; border-radius: 5px; }
 .quiz-option--letter.isActive { background: #afadad; }
 
-.quiz-selectedLetters { margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; }
+.quiz-selectedLetters { margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; align-items: center; justify-content: center; display: flex; }
 
 /*
     RESULTS
