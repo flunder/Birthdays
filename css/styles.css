@@ -129,15 +129,35 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 .quiz-options { }
 .quiz-options--letter { display: flex; align-items: center; justify-content: center; }
 
+/*
+    Animations
+*/
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .quiz-option {}
 .quiz-option:hover { background: #ff5976; }
 .quiz-option--multiple,
 .quiz-option--letter { background: #f1f1f1; padding: 15px; color: black; text-align: center; margin-bottom: 10px; }
 .quiz-option--multiple { width: 100%; display: block; }
-.quiz-option--letter { margin: 0 5px 5px; border-radius: 5px; }
+.quiz-option--letter { margin: 0 5px 5px; border-radius: 5px; padding: 20px 25px; font-weight: bold; font-size: 1rem;}
 .quiz-option--letter.isActive { background: #afadad; }
 
 .quiz-selectedLetters { margin-bottom: 10px; text-align: center; font-size: 1.5rem; font-weight: 700; align-items: center; justify-content: center; display: flex; }
+
+
+.quiz-option { animation: scaleIn 0.5s 0s; }
+.quiz-options:nth-child(0) { animation-delay: 0.1s; }
+.quiz-options:nth-child(1) { animation-delay: 0.2s; }
+.quiz-options:nth-child(2) { animation-delay: 0.3s; }
+.quiz-options:nth-child(2) { animation-delay: 0.4s; }
+
 
 /*
     RESULTS
@@ -181,4 +201,3 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 #svg circle.reset {
     stroke-dashoffset: 0 !important; 
 }
-
