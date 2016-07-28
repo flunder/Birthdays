@@ -121,6 +121,11 @@ var quiz = {
             multiple: this.$el.find('#quiz-template-multiple').html(),
             letter: this.$el.find('#quiz-template-letter').html()
         }
+
+        this.resultIndicator        = this.$el.find('.resultIndicator-wrap');
+        this.resultIndicatorCorrect = this.resultIndicator.find('.resultIndicator--correct');
+        this.resultIndicatorWrong   = this.resultIndicator.find('.resultIndicator--wrong');
+
     },
 
     bindEvents: function(){
@@ -282,8 +287,6 @@ var quiz = {
             this.wrong_pick();
         }
 
-        this.render();
-
         e.preventDefault();
     },
 
@@ -305,15 +308,12 @@ var quiz = {
                 this.wrong_pick();
             }
 
-            this.render();
-
         } else {
 
             var length = this.$chosenLetters.text().trim().length;
 
             if (pickedLetters.substring(0,length) != answer.substring(0,length)){
                 this.wrong_pick();
-                this.render();
             }
 
         }
@@ -325,6 +325,8 @@ var quiz = {
         this.correct++;
         this.streak++;
 
+        this.updateIndicator('right');
+
         if (this.streak == 5) {
             audio.soundSprite.play('bonus');
             this.steak = 0;
@@ -332,13 +334,39 @@ var quiz = {
             audio.soundSprite.play('yep');
         }
 
+        setTimeout(function(){ 
+            quiz.render();
+        }, 250);
+
     },
 
     wrong_pick: function(){
         this.turns++;
         this.streak = 0;
 
+        this.updateIndicator('wrong');
         audio.soundSprite.play('nope');
+
+        setTimeout(function(){ 
+            quiz.render();
+        }, 1000);
+    },
+
+    updateIndicator: function(type){
+
+        var that = this;
+
+        if (type == "wrong") {
+            this.resultIndicatorWrong.removeClass('isHidden');
+        } else {
+            this.resultIndicatorCorrect.removeClass('isHidden');
+        }
+
+        setTimeout(function(){ 
+            that.resultIndicatorWrong.addClass('isHidden');
+            that.resultIndicatorCorrect.addClass('isHidden');
+        }, 500);
+
     },
 
     shuffleArray: function(array) {
@@ -549,15 +577,6 @@ var audio = {
 
         this.bg_audio["audio_" + id].play();
         this.is_playing = id;
-
-        // if (this.sound && this.sound.playing()) this.sound.stop();
-        //
-        // this.sound = new Howl({
-        //     src: this.audiofiles[id],
-        //     loop: true,
-        // });
-        //
-        // this.sound.play();
     }
 
 }
