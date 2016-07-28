@@ -297,11 +297,15 @@ var quiz = {
 
     checkAnswer_multiple: function(e){
 
-        if (this.isRendering) return false;
+        if (this.isRendering) { 
+            return false;
+        }
 
         if ($(e.target).text() == this.quiz.question[this.quiz.game.answerType]){
+            $(e.target).addClass('yep');
             this.correctPick();
         } else {
+            $(e.target).addClass('nope');
             this.wrongPick();
         }
 
