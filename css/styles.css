@@ -202,7 +202,7 @@ input { border: 1px solid #ff5976; border-radius: 5px; padding: 8px 15px; font-s
 
 #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1130s linear;
+  transition: stroke-dashoffset 60s linear;
   stroke: #ff5976;
   stroke-width: 0.25em;
 }

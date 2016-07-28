@@ -126,6 +126,8 @@ var quiz = {
         this.resultIndicatorCorrect = this.resultIndicator.find('.resultIndicator--correct');
         this.resultIndicatorWrong   = this.resultIndicator.find('.resultIndicator--wrong');
 
+        this.isRendering = false;
+
     },
 
     bindEvents: function(){
@@ -171,6 +173,8 @@ var quiz = {
 
         this.$wrap.html(Mustache.render(this.template[this.quiz.game.gameType], data.mustache));
 
+        this.isRendering = false;
+
     },
 
     /*
@@ -188,6 +192,10 @@ var quiz = {
         QUESTION-TYPE:
             - name: find the correct date
             - date: find the correct name
+    
+        CASES:
+            - In Game "Multiple", ask for name or date
+            - In Game "Letter", only ask for the date [3]
 
 
     */
@@ -199,12 +207,18 @@ var quiz = {
         this.quiz = {
             game:     {
                 gameType:     Math.floor(Math.random() * 2) == 1 ? 'multiple' : 'letter',
-                questionType: Math.floor(Math.random() * 2) == 1 ? 'name' : 'date',
+                questionType: '',
                 answerType:   ''
             },
             question: people.getRandomPerson(),
             answers:   []
         };
+
+        if (this.quiz.game.gameType == "multiple"){
+            this.quiz.game.questionType = Math.floor(Math.random() * 2) == 1 ? 'name' : 'date';
+        } else {
+            this.quiz.game.questionType = "name"; // [3]
+        }
 
         this.quiz.game.answerType = this.quiz.game.questionType == 'name' ? 'date' : 'name';
         this.quiz.answers = this.getAnswers();
@@ -262,6 +276,8 @@ var quiz = {
 
     activateLetter: function(e){
 
+        if (this.isRendering) return false;
+
         this.$chosenLetters = $('.quiz-selectedLetters');
 
         if (!$(e.target).hasClass('isActive')) {
@@ -281,10 +297,12 @@ var quiz = {
 
     checkAnswer_multiple: function(e){
 
+        if (this.isRendering) return false;
+
         if ($(e.target).text() == this.quiz.question[this.quiz.game.answerType]){
-            this.correct_pick();
+            this.correctPick();
         } else {
-            this.wrong_pick();
+            this.wrongPick();
         }
 
         e.preventDefault();
@@ -297,15 +315,17 @@ var quiz = {
 
     checkAnswer_letter: function(){
 
+        if (this.isRendering) return false;
+
         var pickedLetters = this.$chosenLetters.text().trim();
         var answer        = this.quiz.question[this.quiz.game.answerType];
 
         if (pickedLetters.length == answer.length) {
 
             if (pickedLetters == answer) {
-                this.correct_pick();
+                this.correctPick();
             } else {
-                this.wrong_pick();
+                this.wrongPick();
             }
 
         } else {
@@ -313,14 +333,14 @@ var quiz = {
             var length = this.$chosenLetters.text().trim().length;
 
             if (pickedLetters.substring(0,length) != answer.substring(0,length)){
-                this.wrong_pick();
+                this.wrongPick();
             }
 
         }
 
     },
 
-    correct_pick: function(){
+    correctPick: function(){
         this.turns++;
         this.correct++;
         this.streak++;
@@ -334,18 +354,22 @@ var quiz = {
             audio.soundSprite.play('yep');
         }
 
+        this.isRendering = true;
+
         setTimeout(function(){ 
             quiz.render();
-        }, 250);
+        }, 500);
 
     },
 
-    wrong_pick: function(){
+    wrongPick: function(){
         this.turns++;
         this.streak = 0;
 
         this.updateIndicator('wrong');
         audio.soundSprite.play('nope');
+
+        this.isRendering = true;
 
         setTimeout(function(){ 
             quiz.render();
